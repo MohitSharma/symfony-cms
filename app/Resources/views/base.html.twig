@@ -4,21 +4,55 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
+          <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}" />
           <link href="{{ asset('styles/main.css')}}" type="text/css" rel="stylesheet" />
-          <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet" />
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <div class="container">
-                <div id="header">
-                  <p id="logo">Custom CMS</p>
-                  <div id="nav">
-                    <a href="{{ path('custom_cms_homepage')}}">Home</a>
-                  </div>
+
+        <nav class="navbar navbar-custom">
+            <div class="container">
+                <div class="navbar-header">
+                    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="/" class="navbar-brand">CMS</a>
                 </div>
-                {% block body %}{% endblock %}
-                {% block javascripts %}{% endblock %}
+                <div class="collapse navbar-collapse" id="navbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="/">Home</a></li>
+                        {% if not (is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')) %}
+                            <li><a href="/login">Login</a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li><a href="{{ path('cms_user')}}">Users</a></li>
+                            <li><a href="{{ path('cms_category')}}">Categories</a></li>
+                            <li><a href="{{ path('cms_page')}}">Pages</a></li>
+                        {% elseif is_granted('ROLE_USER') %}
+                            <li><a href="{{ path('cms_page')}}">Pages</a></li>
+                        {% endif %}
+
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
+                            <li><a href="{{ path('logout')}}">Logout</a></li>
+                        {% endif %}
+
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div class="container">
+                  {% block body %}{% endblock %}
+                  {% block javascripts %}{% endblock %}
         </div>
+        <footer class="footer-custom">
+            <p>CMS Build For Others</p>
+            <p>
+                <a href="#">Back to top</a>
+            </p>
+        </footer>
     </body>
 </html>
