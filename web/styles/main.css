@@ -1,0 +1,31 @@
+.navbar-custom {
+    background-color: #428bca;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1) inset;
+}
+
+.navbar-custom a {
+
+}
+
+.navbar-custom .active {
+    color: #fff;
+}
+.navbar-custom a {
+    color: #cdddeb;
+}
+
+.navbar-custom .nav > li > a:focus, .navbar-custom .nav > li > a:hover {
+    color:#428bca;
+}
+
+.footer-custom {
+    background-color: #f9f9f9;
+    border-top: 1px solid #e5e5e5;
+    color: #999;
+    padding: 40px 0;
+    text-align: center;
+    bottom: 0;
+    height: 60px;
+    position: absolute;
+    width: 100%;
+}
